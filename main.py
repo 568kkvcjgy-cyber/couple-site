@@ -421,7 +421,6 @@ def delete(event_id):
 # =========================
 # 起動
 # =========================
-import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
