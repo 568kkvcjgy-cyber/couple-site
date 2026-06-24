@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デートカレンダー</title>
+
+```
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="header">
+
+    <div class="title">
+        📅 {{ year }}年 {{ month }}月
+    </div>
+
+    <div class="nav">
+
+        <a class="btn" href="/?y={{ prev_year }}&m={{ prev_month }}">
+            ← 前月
+        </a>
+
+        <a class="btn" href="/logout">
+            ログアウト
+        </a>
+
+        <a class="btn" href="/?y={{ next_year }}&m={{ next_month }}">
+            次月 →
+        </a>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <form action="/add" method="post">
+
+        <input
+            type="text"
+            name="title"
+            placeholder="イベント名"
+            required>
+
+        <input
+            type="date"
+            name="date"
+            required>
+
+        <input
+            type="text"
+            name="place"
+            placeholder="場所（任意）">
+
+        <textarea
+            name="memo"
+            placeholder="メモ（任意）"></textarea>
+
+        <label>
+            <input type="checkbox" name="important">
+            ⭐重要イベント
+        </label>
+
+        <button type="submit">
+            イベント追加
+        </button>
+
+    </form>
+
+</div>
+
+<div class="card">
+
+    <form method="get" action="/search">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="イベント検索">
+
+        <button type="submit">
+            検索
+        </button>
+
+    </form>
+
+</div>
+
+<div class="calendar">
+
+    {% for day in weekdays %}
+        <div class="weekday">
+            {{ day }}
+        </div>
+    {% endfor %}
+
+    {% for cell in calendar %}
+
+        <div class="day {% if cell.today %}today{% endif %}">
+
+            {% if cell.day %}
+
+                <div class="day-number">
+                    {{ cell.day }}
+                </div>
+
+                {% for event in cell.events %}
+
+                    <a
+                        href="/event/{{ event.id }}"
+                        class="event {% if event.important %}important{% endif %}">
+
+                        {% if event.important %}
+                            ⭐
+                        {% endif %}
+
+                        {{ event.title }}
+
+                    </a>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</div>
+
+</body>
+</html>

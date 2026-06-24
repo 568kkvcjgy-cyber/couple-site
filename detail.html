@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.title }}</title>
+
+```
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="card">
+
+    <div class="detail-title">
+
+        {% if event.important %}
+            ⭐
+        {% endif %}
+
+        {{ event.title }}
+
+    </div>
+
+    <p>
+        📅 {{ event.date }}
+    </p>
+
+    <br>
+
+    <p>
+        📍 {{ event.place if event.place else "未設定" }}
+    </p>
+
+    <br>
+
+    <p>
+        📝 {{ event.memo if event.memo else "メモなし" }}
+    </p>
+
+    <div class="actions">
+
+        <a href="/edit/{{ event.id }}">
+            ✏️ 編集
+        </a>
+
+        <a
+            href="/delete/{{ event.id }}"
+            onclick="return confirm('削除しますか？')">
+
+            🗑 削除
+
+        </a>
+
+        <a href="/">
+            ← 戻る
+        </a>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+</body>
+</html>
