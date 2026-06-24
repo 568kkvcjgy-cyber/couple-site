@@ -24,7 +24,7 @@ def login_required(f):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        if request.form["password"] == "1234":
+        if request.form["password"] == "0212":
             session["auth"] = True
             return redirect("/")
         return "パスワード違う"
